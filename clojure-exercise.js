@@ -18,6 +18,16 @@ function specialMultiply(a,b){
     }
 }
 
+// IMPROVED SOLUTION
+function specialMultiply(a,b){
+    if(arguments.length === 1) {
+        return function(x) {
+            return a*b;
+        }
+        return a*b;
+    }
+}
+
 /* 
 Write a function called guessingGame which takes in one parameter amount. The function should return another function that takes in a parameter called guess. In the outer function, you should create a variable called answer which is the result of a random number between 0 and 10 as well as a variable called guesses which should be set to 0.
 
@@ -61,4 +71,29 @@ function guessingGame(amount){
             return "You are all done playing!";
         }
     };
+}
+
+// IMPROVED SOLUTION
+
+function guessingGame(amount){
+    var answer = Math.floor(Math.random()*11);
+    var guesses = 0;
+    var completed = false;
+        
+    return function(guess) {
+        if(!completed) {
+            guesses++;
+            if(guess === answer) {
+                completed = true;
+                return "You got it!";
+            }
+            else if(guess > answer) return "Your guess is too high!"; 
+            else if(guess < answer) return "Your guess is too low!"; 
+            else if(guesses === amount) {
+                completed = true;
+                return "No more guesses the answer was " + answer;
+            }
+        }
+        return "You are all done playing!";             
+    }
 }
